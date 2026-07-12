@@ -1,0 +1,185 @@
+aid: wodify
+url: https://raw.githubusercontent.com/api-evangelist/wodify/refs/heads/main/apis.yml
+name: Wodify
+kind: company
+description: Wodify is gym, fitness, and CrossFit box management software covering
+  membership management, billing, class scheduling, lead and client CRM, digital
+  waivers, and workout/performance tracking. The Wodify API is a REST interface at
+  https://api.wodify.com/v1, authenticated with an x-api-key header, that lets
+  partners and gym operators manage leads, clients, memberships, classes, programs,
+  services, appointments, workouts, financials, and communications programmatically.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Fitness
+- Gym Management
+- Membership Management
+- Fitness Software
+- CrossFit
+- Class Scheduling
+- Billing
+- Wellness
+- SaaS
+created: '2026-07-12'
+modified: '2026-07-12'
+specificationVersion: '0.19'
+apis:
+- aid: wodify:wodify-clients-api
+  name: Wodify Clients API
+  tags:
+  - Clients
+  - Members
+  - CRM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_clients
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/docs/getting-started
+    type: Documentation
+  - url: https://docs.wodify.com/reference/get_clients
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Create, retrieve, update, search, suspend, reinstate, deactivate,
+    and reactivate gym clients (members), plus manage client tags, groups, roles,
+    statuses, waivers, and registration links.
+- aid: wodify:wodify-leads-api
+  name: Wodify Leads API
+  tags:
+  - Leads
+  - CRM
+  - Sales
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_leads-1
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/get_leads-1
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Manage prospective members - create, get, update, delete, and search
+    leads, convert leads to clients, and work with lead sources, statuses, tags,
+    groups, bookings, reservations, and sign-ins.
+- aid: wodify:wodify-memberships-api
+  name: Wodify Memberships API
+  tags:
+  - Memberships
+  - Billing
+  - Subscriptions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_memberships-1
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/get_memberships-1
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Create, edit, delete, search, and deactivate memberships and
+    membership templates; manage auto-renew, holds and hold reasons, discounts,
+    accessible locations and programs, attendance types, billing days, and payment
+    plan templates.
+- aid: wodify:wodify-classes-programs-api
+  name: Wodify Classes and Programs API
+  tags:
+  - Classes
+  - Scheduling
+  - Programs
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_classes-1
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/get_classes-1
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Retrieve and search classes and programs, read waitlists, and manage
+    class reservations, sign-ins, and drop-in reservations for clients, leads, and
+    drop-ins.
+- aid: wodify:wodify-workouts-performance-api
+  name: Wodify Workouts and Performance API
+  tags:
+  - Workouts
+  - Performance
+  - Progressions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_workouts-1
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/get_workouts-1
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Create, retrieve, update, delete, and search workouts (WODs), and
+    manage skill progressions, levels, criteria, and per-client progression
+    enrollment and promotion.
+- aid: wodify:wodify-services-appointments-api
+  name: Wodify Services and Appointments API
+  tags:
+  - Appointments
+  - Services
+  - Bookings
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_services-1
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/get_services-1
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Retrieve and search appointment services, and manage client and lead
+    appointment bookings.
+- aid: wodify:wodify-financials-api
+  name: Wodify Financials API
+  tags:
+  - Financials
+  - Invoices
+  - Payments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/get_invoices
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/get_invoices
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Read invoices, transactions, and payment methods, and manage
+    discounts, tax rates, revenue categories, contract templates, and Stripe
+    options for gym billing.
+- aid: wodify:wodify-communications-api
+  name: Wodify Communications API
+  tags:
+  - Communications
+  - Messaging
+  - Tasks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wodify.com/reference/send_email-1
+  baseURL: https://api.wodify.com/v1
+  properties:
+  - url: https://docs.wodify.com/reference/send_email-1
+    type: APIReference
+  - url: openapi/wodify-openapi.yml
+    type: OpenAPI
+  description: Send email, SMS, and in-app chat to clients, leads, drop-ins, and
+    segments; manage tasks, task followers and people, email templates, media
+    library assets, and group phone numbers.
+common:
+- type: DomainSecurity
+  url: security/wodify-domain-security.yml
+- type: Authentication
+  url: authentication/wodify-authentication.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/wodify
+- type: Website
+  url: https://www.wodify.com
+- type: Documentation
+  url: https://docs.wodify.com
+- type: Plans
+  url: plans/wodify-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/wodify-rate-limits.yml
+- type: FinOps
+  url: finops/wodify-finops.yml
+- url: https://www.wodify.com/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

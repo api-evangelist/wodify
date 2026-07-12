@@ -1,0 +1,51 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Wodify
+providerId: wodify
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- SaaS
+- Rate Limiting
+- Quotas
+description: >-
+  Wodify does not publish fixed numeric API rate limits in its public reference.
+  The primary throughput control documented on the API is pagination: list
+  endpoints accept sort, page, and page_size query parameters, and page_size is
+  capped at a maximum (and default) of 100 records per page. No per-minute or
+  per-day request ceiling is documented for the x-api-key credential as of the
+  review date.
+notes: >-
+  Numeric per-key request-rate limits are not documented publicly. Clients should
+  page results at 100 per request, implement exponential backoff with jitter, and
+  honor any 429 / Retry-After responses. Confirm current limits with Wodify
+  support or the Developer Portal during reconciliation.
+sources:
+- https://docs.wodify.com/docs/getting-started
+- https://docs.wodify.com/reference/get_classes-1
+- https://docs.wodify.com/docs/authentication
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: apiKey
+  metric: requests
+  limit: not published
+  notes: No fixed numeric per-key request-rate limit is documented for the Wodify API.
+- name: Page Size
+  scope: request
+  metric: records
+  limit: 100 (maximum and default)
+  notes: List endpoints return up to 100 records per page via the page_size query parameter.
+policies:
+- name: Pagination
+  description: List endpoints support sort, page, and page_size parameters; page_size defaults to and is capped at 100.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "Wodify API",
+    "description": "REST API for the Wodify gym, fitness, and CrossFit box management platform. Base URL: https://api.wodify.com/v1. Every request is authenticated with an x-api-key header (Wodify Core > Digital Presence > Web Integrations > API Keys, or the Wodify Developer Portal for partners). Paths and query parameters for clients, classes, workouts, programs, and services were verified against the live reference; other collections are modeled from Wodify's documented REST operation catalog.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "x-api-key", "type": "string" },
+      { "key": "value", "value": "{{apiKey}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.wodify.com/v1", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Clients",
+      "item": [
+        {
+          "name": "Get clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/clients?page=1&page_size=100", "host": ["{{baseUrl}}"], "path": ["clients"], "query": [{ "key": "page", "value": "1" }, { "key": "page_size", "value": "100" }] },
+            "description": "Returns a paged list of clients (members)."
+          }
+        },
+        {
+          "name": "Create client",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"first_name\": \"\",\n  \"last_name\": \"\",\n  \"email\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/clients", "host": ["{{baseUrl}}"], "path": ["clients"] },
+            "description": "Creates a new client record."
+          }
+        },
+        {
+          "name": "Get client",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/clients/:id", "host": ["{{baseUrl}}"], "path": ["clients", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single client by ID."
+          }
+        },
+        {
+          "name": "Update client",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/clients/:id", "host": ["{{baseUrl}}"], "path": ["clients", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing client."
+          }
+        },
+        {
+          "name": "Search clients",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/clients/search", "host": ["{{baseUrl}}"], "path": ["clients", "search"] },
+            "description": "Searches clients using a filter payload."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leads",
+      "item": [
+        {
+          "name": "Get leads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/leads", "host": ["{{baseUrl}}"], "path": ["leads"] },
+            "description": "Returns a paged list of leads."
+          }
+        },
+        {
+          "name": "Create lead",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"first_name\": \"\",\n  \"last_name\": \"\",\n  \"email\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/leads", "host": ["{{baseUrl}}"], "path": ["leads"] },
+            "description": "Creates a new lead."
+          }
+        },
+        {
+          "name": "Convert lead to client",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/leads/:id/convert-to-client", "host": ["{{baseUrl}}"], "path": ["leads", ":id", "convert-to-client"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Converts a lead into a client."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Memberships",
+      "item": [
+        {
+          "name": "Get memberships",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/memberships", "host": ["{{baseUrl}}"], "path": ["memberships"] },
+            "description": "Returns a paged list of memberships."
+          }
+        },
+        {
+          "name": "Create membership",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/memberships", "host": ["{{baseUrl}}"], "path": ["memberships"] },
+            "description": "Creates a new membership."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Classes and Programs",
+      "item": [
+        {
+          "name": "Get classes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/classes?page=1&page_size=100", "host": ["{{baseUrl}}"], "path": ["classes"], "query": [{ "key": "page", "value": "1" }, { "key": "page_size", "value": "100" }] },
+            "description": "Returns a paged list of scheduled classes."
+          }
+        },
+        {
+          "name": "Get class",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/classes/:id", "host": ["{{baseUrl}}"], "path": ["classes", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single class by ID."
+          }
+        },
+        {
+          "name": "Get programs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/programs", "host": ["{{baseUrl}}"], "path": ["programs"] },
+            "description": "Returns the training programs offered by the gym."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "item": [
+        {
+          "name": "Get services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/services", "host": ["{{baseUrl}}"], "path": ["services"] },
+            "description": "Returns the appointment services offered by the gym."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Workouts",
+      "item": [
+        {
+          "name": "Get workouts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/workouts", "host": ["{{baseUrl}}"], "path": ["workouts"] },
+            "description": "Returns a paged list of workouts (WODs)."
+          }
+        },
+        {
+          "name": "Create workout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/workouts", "host": ["{{baseUrl}}"], "path": ["workouts"] },
+            "description": "Creates a new workout."
+          }
+        },
+        {
+          "name": "Get workout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/workouts/:id", "host": ["{{baseUrl}}"], "path": ["workouts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single workout by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Financials",
+      "item": [
+        {
+          "name": "Get invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/invoices", "host": ["{{baseUrl}}"], "path": ["invoices"] },
+            "description": "Returns a paged list of invoices."
+          }
+        },
+        {
+          "name": "Get invoice by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/invoices/:id", "host": ["{{baseUrl}}"], "path": ["invoices", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single invoice by its invoice ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Communications",
+      "item": [
+        {
+          "name": "Send email",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"to\": \"\",\n  \"subject\": \"\",\n  \"body\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/communications/email", "host": ["{{baseUrl}}"], "path": ["communications", "email"] },
+            "description": "Sends an email to a client, lead, or segment."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reference",
+      "item": [
+        {
+          "name": "Get locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/locations", "host": ["{{baseUrl}}"], "path": ["locations"] },
+            "description": "Returns the gym locations configured in the account."
+          }
+        },
+        {
+          "name": "Get employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/employees", "host": ["{{baseUrl}}"], "path": ["employees"] },
+            "description": "Returns the staff/employees configured in the account."
+          }
+        }
+      ]
+    }
+  ]
+}

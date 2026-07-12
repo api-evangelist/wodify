@@ -1,0 +1,160 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Wodify
+providerId: wodify
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- Membership Management
+- SaaS
+- Plans
+description: >-
+  Wodify is sold as a SaaS subscription billed per gym location, in three tiers -
+  Essentials, Accelerate (most popular), and Ultimate - with a free trial and no
+  permanent free plan. Published list pricing is around $179/month per location,
+  with promotional pricing (roughly $79/month per location) offered via demo. A
+  Pulse performance-tracking add-on is offered at about $99/month. Payment
+  processing is charged on top of the subscription (approximately 2.6% + $0.25
+  for card and 1.5% + $0.30 for ACH). The Wodify API is not sold as a separately
+  metered product - API access comes with the platform subscription (the
+  Workflows feature provides an API key), and partners obtain keys via the Wodify
+  Developer Portal. Exact current rates are not reconciled here.
+notes: >-
+  Prices observed on the Wodify pricing page in July 2026 and third-party
+  listings; promotional and list prices differ and change over time. Verify
+  current tiers, per-location pricing, add-ons, onboarding fees, and processing
+  rates on wodify.com/pricing during reconciliation.
+sources:
+- https://www.wodify.com/pricing
+- https://www.g2.com/products/wodify/pricing
+- https://www.capterra.com/p/159663/Wodify/
+- https://docs.wodify.com/docs/authentication
+plans:
+- id: wodify-essentials
+  name: Essentials
+  type: paid
+  description: >-
+    Entry tier with billing, class scheduling, client management, digital
+    waivers, and a unified app for clients and staff. Billed per location.
+  entries:
+  - label: Subscription
+    name: essentials_subscription
+    type: flat
+    metric: location
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx $179/month per location list (promo approx $79/month per location)
+    userMultiplied: true
+  elements:
+  - name: Billing and Payments
+  - name: Class Scheduling
+  - name: Client Management
+  - name: Digital Waivers
+  - name: Unified Client and Staff App
+  - name: API Access (via Workflows)
+- id: wodify-accelerate
+  name: Accelerate
+  type: paid
+  description: >-
+    Most popular tier. Everything in Essentials plus lead management, insights
+    dashboards, family groups, pre-built automations, and a media library.
+    Billed per location.
+  entries:
+  - label: Subscription
+    name: accelerate_subscription
+    type: flat
+    metric: location
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx $179/month per location list (promo approx $79/month per location)
+    userMultiplied: true
+  elements:
+  - name: Everything in Essentials
+  - name: Lead Management
+  - name: Insights Dashboards
+  - name: Family Groups
+  - name: Pre-Built Automations
+  - name: Media Library
+- id: wodify-ultimate
+  name: Ultimate
+  type: paid
+  description: >-
+    Top tier. Everything in Accelerate plus performance tracking, a custom
+    website, unlimited automations, and accelerated payouts. Billed per location.
+  entries:
+  - label: Subscription
+    name: ultimate_subscription
+    type: flat
+    metric: location
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx $179/month per location list (promo approx $79/month per location)
+    userMultiplied: true
+  elements:
+  - name: Everything in Accelerate
+  - name: Performance Tracking
+  - name: Custom Website
+  - name: Unlimited Automations
+  - name: Accelerated Payouts
+- id: wodify-pulse-addon
+  name: Pulse Add-On
+  type: paid
+  description: >-
+    Optional performance-tracking add-on (Wodify Pulse) layered on a base
+    subscription.
+  entries:
+  - label: Pulse Add-On
+    name: pulse_addon
+    type: flat
+    metric: location
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx $99/month
+    userMultiplied: true
+  elements:
+  - name: Performance Tracking
+  - name: Leaderboards
+- id: wodify-payment-processing
+  name: Payment Processing
+  type: usage
+  description: >-
+    Transaction fees charged on member payments processed through Wodify, on top
+    of the subscription.
+  entries:
+  - label: Card Processing
+    name: card_processing
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx 2.6% + $0.25 per card transaction
+    userMultiplied: false
+  - label: ACH Processing
+    name: ach_processing
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx 1.5% + $0.30 per ACH transaction
+    userMultiplied: false
+  elements:
+  - name: Integrated Payments
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

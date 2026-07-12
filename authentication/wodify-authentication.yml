@@ -1,0 +1,19 @@
+generated: '2026-07-12'
+method: derived
+source: openapi/wodify-openapi.yml
+summary:
+  types:
+  - apiKey
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  keyName: x-api-key
+  description: >-
+    A valid Wodify API key passed in the `x-api-key` request header. Customers
+    using the Wodify Workflows feature already have a key (Wodify Core > Digital
+    Presence > Web Integrations > API Keys, the key named "Wodify API"); partners
+    request a key through the Wodify Developer Portal.
+  sources:
+  - openapi/wodify-openapi.yml
+  - https://docs.wodify.com/docs/authentication

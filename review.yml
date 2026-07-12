@@ -1,0 +1,97 @@
+aid: wodify
+name: Wodify
+review:
+  question: Does Wodify expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-12'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Wodify's documented public API is a
+    request/response REST API over HTTPS at https://api.wodify.com/v1,
+    authenticated with an x-api-key header. There is no server-push transport
+    (WebSocket or SSE) documented on Wodify's own API to model. Wodify does
+    surface automation through its Workflows feature (which uses the same API
+    key), but no realtime WebSocket (ws:// or wss://) endpoint is published in
+    the public reference, so there is nothing to describe with AsyncAPI.
+findings:
+  summary: |
+    Wodify does not publish a documented public WebSocket API. Wodify is gym /
+    fitness / CrossFit box management software. Its public API (docs.wodify.com)
+    is a REST API at base https://api.wodify.com/v1, authenticated with an
+    x-api-key request header, returning JSON. The documented operations are
+    request/response REST across leads, clients, memberships, classes, programs,
+    services, appointments, workouts/progressions, financials, communications,
+    and reference data. Wodify publishes a machine-readable operation index at
+    https://docs.wodify.com/llms.txt. No realtime, bidirectional, or streaming
+    WebSocket (ws:// or wss://) endpoint is documented anywhere in Wodify's API
+    reference as of the review date.
+  accessModel: |
+    The API is real and documented but gated by an API key. Customers on the
+    Wodify Workflows feature already have a key (Wodify Core > Digital Presence >
+    Web Integrations > API Keys). Partners request a key through the Wodify
+    Developer Portal. The reference documentation itself is publicly readable
+    without a key. The auth-doc example also shows an underlying gateway host,
+    app-api.wodify.com, but the canonical documented base URL in the OpenAPI
+    reference is https://api.wodify.com/v1.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.wodify.com/v1
+      documented: true
+      note: JSON request/response over HTTPS, authenticated with the x-api-key header. Pagination via sort, page, and page_size (max 100).
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Wodify's public API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET https://api.wodify.com/v1/clients
+    - GET https://api.wodify.com/v1/classes
+    - GET https://api.wodify.com/v1/workouts
+    - GET https://api.wodify.com/v1/programs
+    - GET https://api.wodify.com/v1/services
+  endpointsModeledFromDocsCatalog:
+    - POST/GET/PUT/DELETE https://api.wodify.com/v1/clients (and /search, /suspend, /reinstate, /deactivate, /reactivate)
+    - POST/GET/PUT/DELETE https://api.wodify.com/v1/leads (and /search, /convert-to-client)
+    - POST/GET/PUT/DELETE https://api.wodify.com/v1/memberships (and templates, holds, discounts, auto-renew)
+    - GET https://api.wodify.com/v1/classes/{id} and class reservations / sign-ins
+    - GET https://api.wodify.com/v1/invoices (and transactions, payment methods, discounts, tax rates)
+    - POST https://api.wodify.com/v1/communications email / SMS / in-app chat, plus tasks
+    - GET https://api.wodify.com/v1/locations and https://api.wodify.com/v1/employees
+  modeledNote: |
+    The endpointsModeledFromDocsCatalog list is derived from Wodify's public,
+    consistently named REST operation catalog (docs.wodify.com/llms.txt). The
+    operations are documented and real; the exact path strings and payload
+    schemas above are reconstructed and should be confirmed against the live
+    reference during reconciliation. Only endpointsConfirmedRest were verified
+    path-for-path against the live documentation.
+sources:
+  - url: https://docs.wodify.com/docs/getting-started
+    type: Documentation
+    note: Lists the ten API categories, base URL https://api.wodify.com/v1, and x-api-key auth. All REST; no WebSocket.
+  - url: https://docs.wodify.com/docs/authentication
+    type: Documentation
+    note: Authentication via the x-api-key header; example shows underlying host app-api.wodify.com.
+  - url: https://docs.wodify.com/llms.txt
+    type: Documentation
+    note: Machine-readable index of all documented REST operations. No WebSocket surface listed.
+  - url: https://docs.wodify.com/reference/get_clients
+    type: APIReference
+    note: Confirms GET /v1/clients at server https://api.wodify.com/v1 with x-api-key.
+  - url: https://docs.wodify.com/reference/get_classes-1
+    type: APIReference
+    note: Confirms GET /v1/classes with sort/page/page_size query parameters (page_size max 100).
+  - url: https://docs.wodify.com/reference/get_workouts-1
+    type: APIReference
+    note: Confirms GET /v1/workouts at https://api.wodify.com/v1.
+  - url: https://help.wodify.com/hc/en-us/articles/209425797-Wodify-s-Program-API
+    type: Documentation
+    note: Program API endpoint documented as https://api.wodify.com/v1/programs.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Wodify's own public API is
+    request/response REST (base https://api.wodify.com/v1) authenticated with an
+    x-api-key header. No AsyncAPI document was created because there is no
+    server-push (WebSocket or SSE) transport on Wodify's own API to model.

@@ -1,0 +1,712 @@
+openapi: 3.0.3
+info:
+  title: Wodify API
+  description: >-
+    REST API for the Wodify gym, fitness, and CrossFit box management platform.
+    The API exposes the core Wodify business objects - leads, clients,
+    memberships, classes, programs, services, appointments, workouts, financials,
+    and communications - over HTTPS. The documented base URL is
+    https://api.wodify.com/v1 and every request is authenticated with an
+    `x-api-key` header. Customers using the Wodify Workflows feature already have
+    an API key (Wodify Core > Digital Presence > Web Integrations > API Keys);
+    partners request one through the Wodify Developer Portal.
+
+    Scope note: this document is reconstructed from Wodify's public API reference
+    (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt).
+    The base URL, the x-api-key auth, and the paths and query parameters for the
+    core collections (clients, classes, workouts, programs, services) were
+    verified directly against the reference; the remaining collection paths follow
+    Wodify's documented, consistently named REST operations and are modeled from
+    that catalog. Not every documented Wodify operation is enumerated here.
+  version: '1.0'
+  contact:
+    name: Wodify
+    url: https://www.wodify.com
+servers:
+  - url: https://api.wodify.com/v1
+    description: Wodify API (production)
+security:
+  - apiKeyAuth: []
+tags:
+  - name: Clients
+    description: Gym clients (members).
+  - name: Leads
+    description: Prospective members and their conversion to clients.
+  - name: Memberships
+    description: Membership records, templates, holds, and billing configuration.
+  - name: Classes
+    description: Scheduled classes, waitlists, reservations, and sign-ins.
+  - name: Programs
+    description: Training programs offered by the gym.
+  - name: Services
+    description: Appointment services and bookings.
+  - name: Workouts
+    description: Workouts (WODs) and skill progressions.
+  - name: Financials
+    description: Invoices, transactions, discounts, tax rates, and revenue categories.
+  - name: Communications
+    description: Email, SMS, in-app chat, and tasks.
+  - name: Reference
+    description: Reference data such as locations, employees, programs, and services.
+paths:
+  /clients:
+    get:
+      operationId: getClients
+      tags:
+        - Clients
+      summary: Get clients
+      description: Returns a paged list of clients (members) in the account.
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createClient
+      tags:
+        - Clients
+      summary: Create client
+      description: Creates a new client record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /clients/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getClient
+      tags:
+        - Clients
+      summary: Get client
+      description: Retrieves a single client by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateClient
+      tags:
+        - Clients
+      summary: Update client
+      description: Updates an existing client.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /clients/search:
+    post:
+      operationId: searchClients
+      tags:
+        - Clients
+      summary: Search clients
+      description: Searches clients using a filter payload.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /leads:
+    get:
+      operationId: getLeads
+      tags:
+        - Leads
+      summary: Get leads
+      description: Returns a paged list of leads (prospective members).
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createLead
+      tags:
+        - Leads
+      summary: Create lead
+      description: Creates a new lead.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /leads/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getLead
+      tags:
+        - Leads
+      summary: Get lead
+      description: Retrieves a single lead by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateLead
+      tags:
+        - Leads
+      summary: Update lead
+      description: Updates an existing lead.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteLead
+      tags:
+        - Leads
+      summary: Delete lead
+      description: Deletes a lead.
+      responses:
+        '200':
+          description: The lead was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /leads/{id}/convert-to-client:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: convertLeadToClient
+      tags:
+        - Leads
+      summary: Convert lead to client
+      description: Converts a lead into a client.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /memberships:
+    get:
+      operationId: getMemberships
+      tags:
+        - Memberships
+      summary: Get memberships
+      description: Returns a paged list of memberships.
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMembership
+      tags:
+        - Memberships
+      summary: Create membership
+      description: Creates a new membership.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Membership'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /memberships/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getMembership
+      tags:
+        - Memberships
+      summary: Get membership
+      description: Retrieves a single membership by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateMembership
+      tags:
+        - Memberships
+      summary: Edit membership
+      description: Edits an existing membership.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Membership'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteMembership
+      tags:
+        - Memberships
+      summary: Delete membership
+      description: Deletes a membership.
+      responses:
+        '200':
+          description: The membership was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /classes:
+    get:
+      operationId: getClasses
+      tags:
+        - Classes
+      summary: Get classes
+      description: Returns a paged list of scheduled classes.
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /classes/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getClass
+      tags:
+        - Classes
+      summary: Get class
+      description: Retrieves a single class by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /programs:
+    get:
+      operationId: getPrograms
+      tags:
+        - Programs
+      summary: Get programs
+      description: Returns the training programs offered by the gym.
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /services:
+    get:
+      operationId: getServices
+      tags:
+        - Services
+      summary: Get services
+      description: Returns the appointment services offered by the gym.
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workouts:
+    get:
+      operationId: getWorkouts
+      tags:
+        - Workouts
+      summary: Get workouts
+      description: Returns a paged list of workouts (WODs).
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWorkout
+      tags:
+        - Workouts
+      summary: Create workout
+      description: Creates a new workout.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /workouts/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getWorkout
+      tags:
+        - Workouts
+      summary: Get workout
+      description: Retrieves a single workout by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateWorkout
+      tags:
+        - Workouts
+      summary: Update workout
+      description: Updates an existing workout.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteWorkout
+      tags:
+        - Workouts
+      summary: Delete workout
+      description: Deletes a workout.
+      responses:
+        '200':
+          description: The workout was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /invoices:
+    get:
+      operationId: getInvoices
+      tags:
+        - Financials
+      summary: Get invoices
+      description: Returns a paged list of invoices.
+      parameters:
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /invoices/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getInvoice
+      tags:
+        - Financials
+      summary: Get invoice by ID
+      description: Retrieves a single invoice by its invoice ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /communications/email:
+    post:
+      operationId: sendEmail
+      tags:
+        - Communications
+      summary: Send email
+      description: Sends an email to a client, lead, or segment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailMessage'
+      responses:
+        '200':
+          description: The email was queued for delivery.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /locations:
+    get:
+      operationId: getLocations
+      tags:
+        - Reference
+      summary: Get locations
+      description: Returns the gym locations configured in the account.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /employees:
+    get:
+      operationId: getEmployees
+      tags:
+        - Reference
+      summary: Get employees
+      description: Returns the staff/employees configured in the account.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: >-
+        A valid Wodify API key passed in the `x-api-key` request header.
+        Customers using Wodify Workflows already have a key under Wodify Core >
+        Digital Presence > Web Integrations > API Keys; partners request one via
+        the Wodify Developer Portal.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource.
+      schema:
+        type: string
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: Specifies the order in which the list will be returned.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Specifies the page of records to be returned. Defaults to 1.
+      schema:
+        type: integer
+        default: 1
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      description: Number of records to return per page. Maximum and default are 100.
+      schema:
+        type: integer
+        default: 100
+        maximum: 100
+  responses:
+    ListResponse:
+      description: A paged list of resources.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+              page:
+                type: integer
+              page_size:
+                type: integer
+    ObjectResponse:
+      description: A single resource.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    SearchRequest:
+      type: object
+      description: A filter payload for a search operation.
+      additionalProperties: true
+    Client:
+      type: object
+      description: A gym client (member). Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        location_id:
+          type: string
+        status:
+          type: string
+    Lead:
+      type: object
+      description: A prospective member. Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        source:
+          type: string
+        status:
+          type: string
+    Membership:
+      type: object
+      description: A membership record. Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        client_id:
+          type: string
+        template_id:
+          type: string
+        name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        auto_renew:
+          type: boolean
+    Workout:
+      type: object
+      description: A workout (WOD). Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        program_id:
+          type: string
+        date:
+          type: string
+          format: date
+        name:
+          type: string
+        components:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    EmailMessage:
+      type: object
+      description: An outbound email message.
+      properties:
+        to:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string

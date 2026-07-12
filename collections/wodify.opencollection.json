@@ -1,0 +1,238 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wodify API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "x-api-key",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Clients", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get clients.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wodify.com/v1/clients?page=1&page_size=100",
+            "params": [
+              { "name": "page", "value": "1", "type": "query", "description": "Page of records to return. Defaults to 1." },
+              { "name": "page_size", "value": "100", "type": "query", "description": "Records per page. Maximum and default are 100." }
+            ]
+          },
+          "docs": "Returns a paged list of clients (members)."
+        },
+        {
+          "info": { "name": "Create client.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/clients",
+            "body": { "type": "json", "data": "{\n  \"first_name\": \"\",\n  \"last_name\": \"\",\n  \"email\": \"\"\n}" }
+          },
+          "docs": "Creates a new client record."
+        },
+        {
+          "info": { "name": "Get client.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wodify.com/v1/clients/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The client ID." }]
+          },
+          "docs": "Retrieves a single client by ID."
+        },
+        {
+          "info": { "name": "Update client.", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wodify.com/v1/clients/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The client ID." }],
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Updates an existing client."
+        },
+        {
+          "info": { "name": "Search clients.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/clients/search",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Searches clients using a filter payload."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Leads", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get leads.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/leads" },
+          "docs": "Returns a paged list of leads."
+        },
+        {
+          "info": { "name": "Create lead.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/leads",
+            "body": { "type": "json", "data": "{\n  \"first_name\": \"\",\n  \"last_name\": \"\",\n  \"email\": \"\"\n}" }
+          },
+          "docs": "Creates a new lead."
+        },
+        {
+          "info": { "name": "Convert lead to client.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/leads/:id/convert-to-client",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The lead ID." }]
+          },
+          "docs": "Converts a lead into a client."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Memberships", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get memberships.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/memberships" },
+          "docs": "Returns a paged list of memberships."
+        },
+        {
+          "info": { "name": "Create membership.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/memberships",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a new membership."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Classes and Programs", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get classes.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wodify.com/v1/classes?page=1&page_size=100",
+            "params": [
+              { "name": "page", "value": "1", "type": "query", "description": "Page of records to return. Defaults to 1." },
+              { "name": "page_size", "value": "100", "type": "query", "description": "Records per page. Maximum and default are 100." }
+            ]
+          },
+          "docs": "Returns a paged list of scheduled classes."
+        },
+        {
+          "info": { "name": "Get class.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wodify.com/v1/classes/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The class ID." }]
+          },
+          "docs": "Retrieves a single class by ID."
+        },
+        {
+          "info": { "name": "Get programs.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/programs" },
+          "docs": "Returns the training programs offered by the gym."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Services", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get services.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/services" },
+          "docs": "Returns the appointment services offered by the gym."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Workouts", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get workouts.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/workouts" },
+          "docs": "Returns a paged list of workouts (WODs)."
+        },
+        {
+          "info": { "name": "Create workout.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/workouts",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a new workout."
+        },
+        {
+          "info": { "name": "Get workout.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wodify.com/v1/workouts/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The workout ID." }]
+          },
+          "docs": "Retrieves a single workout by ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Financials", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get invoices.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/invoices" },
+          "docs": "Returns a paged list of invoices."
+        },
+        {
+          "info": { "name": "Get invoice by ID.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wodify.com/v1/invoices/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The invoice ID." }]
+          },
+          "docs": "Retrieves a single invoice by its invoice ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Communications", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Send email.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wodify.com/v1/communications/email",
+            "body": { "type": "json", "data": "{\n  \"to\": \"\",\n  \"subject\": \"\",\n  \"body\": \"\"\n}" }
+          },
+          "docs": "Sends an email to a client, lead, or segment."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Reference", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get locations.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/locations" },
+          "docs": "Returns the gym locations configured in the account."
+        },
+        {
+          "info": { "name": "Get employees.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.wodify.com/v1/employees" },
+          "docs": "Returns the staff/employees configured in the account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

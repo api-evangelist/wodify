@@ -1,0 +1,92 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Wodify
+providerId: wodify
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- SaaS
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Wodify spend. Wodify is a per-location SaaS subscription
+  (Essentials, Accelerate, Ultimate) with an optional Pulse performance-tracking
+  add-on, plus usage-based payment-processing fees on member transactions. The
+  API is not separately metered - API access is included with the platform
+  subscription (the Workflows feature issues an API key), so the cost drivers are
+  the number of gym locations, the chosen tier, any add-ons, and the volume and
+  mix (card vs ACH) of member payments processed through Wodify.
+notes: >-
+  Per-unit rates are not reconciled here; verify on wodify.com/pricing. The
+  dominant, variable cost for most operators is payment-processing fees, which
+  scale with member billing volume rather than with API usage.
+sources:
+- https://www.wodify.com/pricing
+- https://docs.wodify.com/docs/getting-started
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Wodify
+serviceCategory: Fitness and Gym Management Software
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Subscription
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: Wodify
+  ServiceCategory: Fitness and Gym Management Software
+  ProviderName: Wodify
+  PublisherName: Wodify
+  InvoiceIssuerName: Wodify
+  BillingCurrency: USD
+  ChargeCategory: Subscription
+  PricingCategory: Subscription-Based
+meters:
+- name: location_subscription
+  description: Monthly per-location subscription fee for the chosen Wodify tier.
+  unit: locations
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+  - tier
+- name: pulse_addon
+  description: Optional Wodify Pulse performance-tracking add-on.
+  unit: locations
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+- name: payment_processing
+  description: Transaction fees on member payments processed through Wodify (card and ACH).
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+  - method
+principles:
+- name: Visibility
+  description: Track subscription cost per location and tier, add-ons, and payment-processing fees per location and payment method.
+- name: Allocation
+  description: Map per-location subscriptions and processing fees to individual gyms or franchise units.
+- name: Optimization
+  description: Right-size the plan tier to the features actually used, steer eligible member payments to lower-fee ACH, and drop add-ons that are not delivering value.
+- name: Accountability
+  description: Assign an owner per location; review monthly subscription plus processing spend against membership revenue.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
