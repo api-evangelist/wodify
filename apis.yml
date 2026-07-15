@@ -162,6 +162,8 @@ apis:
     segments; manage tasks, task followers and people, email templates, media
     library assets, and group phone numbers.
 common:
+- type: AgenticAccess
+  url: agentic-access/wodify-agentic-access.yml
 - type: DomainSecurity
   url: security/wodify-domain-security.yml
 - type: Authentication
