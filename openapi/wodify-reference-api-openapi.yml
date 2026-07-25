@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Wodify Classes Reference API
+  description: 'REST API for the Wodify gym, fitness, and CrossFit box management platform. The API exposes the core Wodify business objects - leads, clients, memberships, classes, programs, services, appointments, workouts, financials, and communications - over HTTPS. The documented base URL is https://api.wodify.com/v1 and every request is authenticated with an `x-api-key` header. Customers using the Wodify Workflows feature already have an API key (Wodify Core > Digital Presence > Web Integrations > API Keys); partners request one through the Wodify Developer Portal.
+
+    Scope note: this document is reconstructed from Wodify''s public API reference (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt). The base URL, the x-api-key auth, and the paths and query parameters for the core collections (clients, classes, workouts, programs, services) were verified directly against the reference; the remaining collection paths follow Wodify''s documented, consistently named REST operations and are modeled from that catalog. Not every documented Wodify operation is enumerated here.'
+  version: '1.0'
+  contact:
+    name: Wodify
+    url: https://www.wodify.com
+servers:
+- url: https://api.wodify.com/v1
+  description: Wodify API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Reference
+  description: Reference data such as locations, employees, programs, and services.
+paths:
+  /locations:
+    get:
+      operationId: getLocations
+      tags:
+      - Reference
+      summary: Get locations
+      description: Returns the gym locations configured in the account.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /employees:
+    get:
+      operationId: getEmployees
+      tags:
+      - Reference
+      summary: Get employees
+      description: Returns the staff/employees configured in the account.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+  responses:
+    ListResponse:
+      description: A paged list of resources.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+              page:
+                type: integer
+              page_size:
+                type: integer
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: A valid Wodify API key passed in the `x-api-key` request header. Customers using Wodify Workflows already have a key under Wodify Core > Digital Presence > Web Integrations > API Keys; partners request one via the Wodify Developer Portal.

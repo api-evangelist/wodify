@@ -1,0 +1,204 @@
+openapi: 3.0.3
+info:
+  title: Wodify Classes Memberships API
+  description: 'REST API for the Wodify gym, fitness, and CrossFit box management platform. The API exposes the core Wodify business objects - leads, clients, memberships, classes, programs, services, appointments, workouts, financials, and communications - over HTTPS. The documented base URL is https://api.wodify.com/v1 and every request is authenticated with an `x-api-key` header. Customers using the Wodify Workflows feature already have an API key (Wodify Core > Digital Presence > Web Integrations > API Keys); partners request one through the Wodify Developer Portal.
+
+    Scope note: this document is reconstructed from Wodify''s public API reference (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt). The base URL, the x-api-key auth, and the paths and query parameters for the core collections (clients, classes, workouts, programs, services) were verified directly against the reference; the remaining collection paths follow Wodify''s documented, consistently named REST operations and are modeled from that catalog. Not every documented Wodify operation is enumerated here.'
+  version: '1.0'
+  contact:
+    name: Wodify
+    url: https://www.wodify.com
+servers:
+- url: https://api.wodify.com/v1
+  description: Wodify API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Memberships
+  description: Membership records, templates, holds, and billing configuration.
+paths:
+  /memberships:
+    get:
+      operationId: getMemberships
+      tags:
+      - Memberships
+      summary: Get memberships
+      description: Returns a paged list of memberships.
+      parameters:
+      - $ref: '#/components/parameters/Sort'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMembership
+      tags:
+      - Memberships
+      summary: Create membership
+      description: Creates a new membership.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Membership'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /memberships/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getMembership
+      tags:
+      - Memberships
+      summary: Get membership
+      description: Retrieves a single membership by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateMembership
+      tags:
+      - Memberships
+      summary: Edit membership
+      description: Edits an existing membership.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Membership'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteMembership
+      tags:
+      - Memberships
+      summary: Delete membership
+      description: Deletes a membership.
+      responses:
+        '200':
+          description: The membership was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ListResponse:
+      description: A paged list of resources.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+              page:
+                type: integer
+              page_size:
+                type: integer
+    ObjectResponse:
+      description: A single resource.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Specifies the page of records to be returned. Defaults to 1.
+      schema:
+        type: integer
+        default: 1
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource.
+      schema:
+        type: string
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: Specifies the order in which the list will be returned.
+      schema:
+        type: string
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      description: Number of records to return per page. Maximum and default are 100.
+      schema:
+        type: integer
+        default: 100
+        maximum: 100
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    Membership:
+      type: object
+      description: A membership record. Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        client_id:
+          type: string
+        template_id:
+          type: string
+        name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        auto_renew:
+          type: boolean
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: A valid Wodify API key passed in the `x-api-key` request header. Customers using Wodify Workflows already have a key under Wodify Core > Digital Presence > Web Integrations > API Keys; partners request one via the Wodify Developer Portal.

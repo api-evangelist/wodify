@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: Wodify Classes Clients API
+  description: 'REST API for the Wodify gym, fitness, and CrossFit box management platform. The API exposes the core Wodify business objects - leads, clients, memberships, classes, programs, services, appointments, workouts, financials, and communications - over HTTPS. The documented base URL is https://api.wodify.com/v1 and every request is authenticated with an `x-api-key` header. Customers using the Wodify Workflows feature already have an API key (Wodify Core > Digital Presence > Web Integrations > API Keys); partners request one through the Wodify Developer Portal.
+
+    Scope note: this document is reconstructed from Wodify''s public API reference (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt). The base URL, the x-api-key auth, and the paths and query parameters for the core collections (clients, classes, workouts, programs, services) were verified directly against the reference; the remaining collection paths follow Wodify''s documented, consistently named REST operations and are modeled from that catalog. Not every documented Wodify operation is enumerated here.'
+  version: '1.0'
+  contact:
+    name: Wodify
+    url: https://www.wodify.com
+servers:
+- url: https://api.wodify.com/v1
+  description: Wodify API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Clients
+  description: Gym clients (members).
+paths:
+  /clients:
+    get:
+      operationId: getClients
+      tags:
+      - Clients
+      summary: Get clients
+      description: Returns a paged list of clients (members) in the account.
+      parameters:
+      - $ref: '#/components/parameters/Sort'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createClient
+      tags:
+      - Clients
+      summary: Create client
+      description: Creates a new client record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /clients/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getClient
+      tags:
+      - Clients
+      summary: Get client
+      description: Retrieves a single client by ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateClient
+      tags:
+      - Clients
+      summary: Update client
+      description: Updates an existing client.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          $ref: '#/components/responses/ObjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /clients/search:
+    post:
+      operationId: searchClients
+      tags:
+      - Clients
+      summary: Search clients
+      description: Searches clients using a filter payload.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ListResponse:
+      description: A paged list of resources.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+              page:
+                type: integer
+              page_size:
+                type: integer
+    ObjectResponse:
+      description: A single resource.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+  schemas:
+    Client:
+      type: object
+      description: A gym client (member). Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        location_id:
+          type: string
+        status:
+          type: string
+    SearchRequest:
+      type: object
+      description: A filter payload for a search operation.
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource.
+      schema:
+        type: string
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: Specifies the order in which the list will be returned.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Specifies the page of records to be returned. Defaults to 1.
+      schema:
+        type: integer
+        default: 1
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      description: Number of records to return per page. Maximum and default are 100.
+      schema:
+        type: integer
+        default: 100
+        maximum: 100
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: A valid Wodify API key passed in the `x-api-key` request header. Customers using Wodify Workflows already have a key under Wodify Core > Digital Presence > Web Integrations > API Keys; partners request one via the Wodify Developer Portal.

@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Wodify Classes Communications API
+  description: 'REST API for the Wodify gym, fitness, and CrossFit box management platform. The API exposes the core Wodify business objects - leads, clients, memberships, classes, programs, services, appointments, workouts, financials, and communications - over HTTPS. The documented base URL is https://api.wodify.com/v1 and every request is authenticated with an `x-api-key` header. Customers using the Wodify Workflows feature already have an API key (Wodify Core > Digital Presence > Web Integrations > API Keys); partners request one through the Wodify Developer Portal.
+
+    Scope note: this document is reconstructed from Wodify''s public API reference (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt). The base URL, the x-api-key auth, and the paths and query parameters for the core collections (clients, classes, workouts, programs, services) were verified directly against the reference; the remaining collection paths follow Wodify''s documented, consistently named REST operations and are modeled from that catalog. Not every documented Wodify operation is enumerated here.'
+  version: '1.0'
+  contact:
+    name: Wodify
+    url: https://www.wodify.com
+servers:
+- url: https://api.wodify.com/v1
+  description: Wodify API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Communications
+  description: Email, SMS, in-app chat, and tasks.
+paths:
+  /communications/email:
+    post:
+      operationId: sendEmail
+      tags:
+      - Communications
+      summary: Send email
+      description: Sends an email to a client, lead, or segment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailMessage'
+      responses:
+        '200':
+          description: The email was queued for delivery.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    EmailMessage:
+      type: object
+      description: An outbound email message.
+      properties:
+        to:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+  responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: A valid Wodify API key passed in the `x-api-key` request header. Customers using Wodify Workflows already have a key under Wodify Core > Digital Presence > Web Integrations > API Keys; partners request one via the Wodify Developer Portal.
