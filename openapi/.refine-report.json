@@ -1,0 +1,32 @@
+{
+  "provider": "wodify",
+  "sources": [
+    "wodify-classes-api-openapi.yml",
+    "wodify-clients-api-openapi.yml",
+    "wodify-communications-api-openapi.yml",
+    "wodify-financials-api-openapi.yml",
+    "wodify-leads-api-openapi.yml",
+    "wodify-memberships-api-openapi.yml",
+    "wodify-programs-api-openapi.yml",
+    "wodify-reference-api-openapi.yml",
+    "wodify-services-api-openapi.yml",
+    "wodify-workouts-api-openapi.yml"
+  ],
+  "outputs": [
+    "wodify-classes-api-openapi.yml",
+    "wodify-clients-api-openapi.yml",
+    "wodify-communications-api-openapi.yml",
+    "wodify-financials-api-openapi.yml",
+    "wodify-leads-api-openapi.yml",
+    "wodify-memberships-api-openapi.yml",
+    "wodify-programs-api-openapi.yml",
+    "wodify-reference-api-openapi.yml",
+    "wodify-services-api-openapi.yml",
+    "wodify-workouts-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
