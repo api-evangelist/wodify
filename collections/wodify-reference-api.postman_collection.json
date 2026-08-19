@@ -1,0 +1,291 @@
+{
+  "item": [
+    {
+      "id": "638b53df-9f92-41c5-95f1-96a226af90dd",
+      "name": "Reference",
+      "description": {
+        "content": "Reference data such as locations, employees, programs, and services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32fab21e-cb87-4b53-a8d5-f00bdc864f52",
+          "name": "Get locations",
+          "request": {
+            "name": "Get locations",
+            "description": {
+              "content": "Returns the gym locations configured in the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0878de52-ba1e-4376-812b-094a2efdbff0",
+              "name": "A paged list of resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 6173\n    },\n    {\n      \"key_0\": 8508.503074274888,\n      \"key_1\": 7326.625058883395,\n      \"key_2\": 1731.595808122377\n    }\n  ],\n  \"page\": 5232,\n  \"page_size\": 7896\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f140ab59-d0f7-4391-a05a-3d0d71d8aab3",
+              "name": "Missing or invalid x-api-key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7508bc6-6a12-4475-8184-ce3e044fc417",
+          "name": "Get employees",
+          "request": {
+            "name": "Get employees",
+            "description": {
+              "content": "Returns the staff/employees configured in the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "employees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6bc153f-c431-4a00-a4f3-2a7688c8aa38",
+              "name": "A paged list of resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 339\n    },\n    {\n      \"key_0\": true\n    }\n  ],\n  \"page\": 3155,\n  \"page_size\": 6778\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0283b8d0-c78f-4937-92ed-8fc9dd189cb8",
+              "name": "Missing or invalid x-api-key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wodify.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "24c9593d-a1bc-4827-b10a-42cd34932346",
+    "name": "Wodify Classes Reference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Wodify gym, fitness, and CrossFit box management platform. The API exposes the core Wodify business objects - leads, clients, memberships, classes, programs, services, appointments, workouts, financials, and communications - over HTTPS. The documented base URL is https://api.wodify.com/v1 and every request is authenticated with an `x-api-key` header. Customers using the Wodify Workflows feature already have an API key (Wodify Core > Digital Presence > Web Integrations > API Keys); partners request one through the Wodify Developer Portal.\nScope note: this document is reconstructed from Wodify's public API reference (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt). The base URL, the x-api-key auth, and the paths and query parameters for the core collections (clients, classes, workouts, programs, services) were verified directly against the reference; the remaining collection paths follow Wodify's documented, consistently named REST operations and are modeled from that catalog. Not every documented Wodify operation is enumerated here.\n\nContact Support:\n Name: Wodify",
+      "type": "text/plain"
+    }
+  }
+}

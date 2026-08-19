@@ -1,0 +1,215 @@
+{
+  "item": [
+    {
+      "id": "14e3f0a6-b0c7-421f-a9f1-003fc10108bf",
+      "name": "Services",
+      "description": {
+        "content": "Appointment services and bookings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c02a9b60-5ef5-48ca-aed7-83c382431e2c",
+          "name": "Get services",
+          "request": {
+            "name": "Get services",
+            "description": {
+              "content": "Returns the appointment services offered by the gym.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Specifies the order in which the list will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Specifies the page of records to be returned. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of records to return per page. Maximum and default are 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d66fd8c8-b499-42b9-a580-6745232af864",
+              "name": "A paged list of resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 1129.7168384546974,\n      \"key_1\": 9087.812681848334\n    },\n    {\n      \"key_0\": 9859.199424139559,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    }\n  ],\n  \"page\": 4538,\n  \"page_size\": 9988\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45602270-b425-47a3-949d-cd52db7d699c",
+              "name": "Missing or invalid x-api-key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wodify.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d6bcbef-2f64-4f59-81de-64dbe73df54f",
+    "name": "Wodify Classes Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Wodify gym, fitness, and CrossFit box management platform. The API exposes the core Wodify business objects - leads, clients, memberships, classes, programs, services, appointments, workouts, financials, and communications - over HTTPS. The documented base URL is https://api.wodify.com/v1 and every request is authenticated with an `x-api-key` header. Customers using the Wodify Workflows feature already have an API key (Wodify Core > Digital Presence > Web Integrations > API Keys); partners request one through the Wodify Developer Portal.\nScope note: this document is reconstructed from Wodify's public API reference (docs.wodify.com) and its published operation catalog (docs.wodify.com/llms.txt). The base URL, the x-api-key auth, and the paths and query parameters for the core collections (clients, classes, workouts, programs, services) were verified directly against the reference; the remaining collection paths follow Wodify's documented, consistently named REST operations and are modeled from that catalog. Not every documented Wodify operation is enumerated here.\n\nContact Support:\n Name: Wodify",
+      "type": "text/plain"
+    }
+  }
+}
