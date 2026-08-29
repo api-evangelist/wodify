@@ -8,6 +8,18 @@ description: Wodify is gym, fitness, and CrossFit box management software coveri
   https://api.wodify.com/v1, authenticated with an x-api-key header, that lets
   partners and gym operators manage leads, clients, memberships, classes, programs,
   services, appointments, workouts, financials, and communications programmatically.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
