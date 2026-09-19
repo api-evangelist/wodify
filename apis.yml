@@ -148,6 +148,8 @@ apis:
   humanURL: https://docs.wodify.com/reference/get_clients
   baseURL: https://api.wodify.com/v1
   tags:
+  - Financial
+  tags_raw:
   - Financials
   properties:
   - type: OpenAPI
@@ -204,6 +206,8 @@ apis:
   humanURL: https://docs.wodify.com/reference/get_clients
   baseURL: https://api.wodify.com/v1
   tags:
+  - Membership
+  tags_raw:
   - Memberships
   properties:
   - type: OpenAPI
