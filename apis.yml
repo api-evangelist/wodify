@@ -148,9 +148,10 @@ apis:
   humanURL: https://docs.wodify.com/reference/get_clients
   baseURL: https://api.wodify.com/v1
   tags:
-  - Financial
+  - Finance
   tags_raw:
   - Financials
+  - Financial
   properties:
   - type: OpenAPI
     url: openapi/wodify-financials-api-openapi.yml

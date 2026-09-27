@@ -58,12 +58,6 @@ components:
         default: 100
         maximum: 100
   responses:
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     ListResponse:
       description: A paged list of resources.
       content:
@@ -80,6 +74,12 @@ components:
                 type: integer
               page_size:
                 type: integer
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object

@@ -96,13 +96,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource.
-      schema:
-        type: string
     Sort:
       name: sort
       in: query
@@ -127,50 +120,14 @@ components:
         type: integer
         default: 100
         maximum: 100
-  schemas:
-    Membership:
-      type: object
-      description: A membership record. Fields are modeled; see the Wodify reference for the authoritative schema.
-      properties:
-        id:
-          type: string
-        client_id:
-          type: string
-        template_id:
-          type: string
-        name:
-          type: string
-        start_date:
-          type: string
-          format: date
-        auto_renew:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource.
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     ListResponse:
       description: A paged list of resources.
       content:
@@ -194,6 +151,49 @@ components:
           schema:
             type: object
             additionalProperties: true
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    Membership:
+      type: object
+      description: A membership record. Fields are modeled; see the Wodify reference for the authoritative schema.
+      properties:
+        id:
+          type: string
+        client_id:
+          type: string
+        template_id:
+          type: string
+        name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        auto_renew:
+          type: boolean
   securitySchemes:
     apiKeyAuth:
       type: apiKey
