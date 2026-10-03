@@ -40,13 +40,15 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     ListResponse:
       description: A paged list of resources.
       content:
@@ -63,14 +65,12 @@ components:
                 type: integer
               page_size:
                 type: integer
-  schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

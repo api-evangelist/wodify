@@ -95,39 +95,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    Sort:
-      name: sort
-      in: query
-      required: false
-      description: Specifies the order in which the list will be returned.
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Specifies the page of records to be returned. Defaults to 1.
-      schema:
-        type: integer
-        default: 1
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      description: Number of records to return per page. Maximum and default are 100.
-      schema:
-        type: integer
-        default: 100
-        maximum: 100
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the resource.
-      schema:
-        type: string
   responses:
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -150,6 +124,12 @@ components:
                 type: integer
               page_size:
                 type: integer
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     ObjectResponse:
       description: A single resource.
       content:
@@ -157,18 +137,38 @@ components:
           schema:
             type: object
             additionalProperties: true
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the resource.
+      schema:
+        type: string
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: Specifies the order in which the list will be returned.
+      schema:
+        type: string
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      description: Number of records to return per page. Maximum and default are 100.
+      schema:
+        type: integer
+        default: 100
+        maximum: 100
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Specifies the page of records to be returned. Defaults to 1.
+      schema:
+        type: integer
+        default: 1
   schemas:
     Error:
       type: object
