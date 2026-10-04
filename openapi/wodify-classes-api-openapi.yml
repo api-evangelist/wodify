@@ -48,6 +48,42 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ObjectResponse:
+      description: A single resource.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ListResponse:
+      description: A paged list of resources.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+              page:
+                type: integer
+              page_size:
+                type: integer
   parameters:
     Id:
       name: id
@@ -80,42 +116,6 @@ components:
       schema:
         type: integer
         default: 1
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ListResponse:
-      description: A paged list of resources.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  additionalProperties: true
-              page:
-                type: integer
-              page_size:
-                type: integer
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ObjectResponse:
-      description: A single resource.
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: true
   schemas:
     Error:
       type: object

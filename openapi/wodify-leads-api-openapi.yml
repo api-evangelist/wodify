@@ -112,14 +112,27 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    ValidationError:
-      description: The request payload failed validation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    ObjectResponse:
+      description: A single resource.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
       content:
         application/json:
           schema:
@@ -140,19 +153,6 @@ components:
                 type: integer
               page_size:
                 type: integer
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ObjectResponse:
-      description: A single resource.
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: true
   parameters:
     Id:
       name: id

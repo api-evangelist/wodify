@@ -32,6 +32,29 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid x-api-key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ListResponse:
+      description: A paged list of resources.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+              page:
+                type: integer
+              page_size:
+                type: integer
   parameters:
     Sort:
       name: sort
@@ -57,29 +80,6 @@ components:
       schema:
         type: integer
         default: 1
-  responses:
-    ListResponse:
-      description: A paged list of resources.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  additionalProperties: true
-              page:
-                type: integer
-              page_size:
-                type: integer
-    Unauthorized:
-      description: Missing or invalid x-api-key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
