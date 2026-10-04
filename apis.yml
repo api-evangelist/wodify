@@ -344,6 +344,9 @@ apis:
   - type: APIReference
     url: https://docs.wodify.com/reference/send_email-1
 common:
+- type: CapabilityMap
+  url: capabilities/wodify-capability-edges.yml
+  name: Wodify Business Capability Map
 - type: AgenticAccess
   url: agentic-access/wodify-agentic-access.yml
 - type: DomainSecurity
